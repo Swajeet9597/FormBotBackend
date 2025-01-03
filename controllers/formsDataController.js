@@ -432,16 +432,22 @@ const createResponseDoc = async (req, res) => {
     try {
         const { folderName, anotherUserId, formName } = req.body;
 
-        if (anotherUserId) {
+        let userId = req.data._id
+
+        if(anotherUserId){
+            userId = anotherUserId
+        }
+
+        if (userId) {
             const existingDoc = await Response.findOne({
-                userId: anotherUserId,
+                userId: userId,
                 Formname: formName,
                 Foldername: folderName,
             });
 
             if (!existingDoc) {
                 const addRoot = new Response({
-                    userId: anotherUserId,
+                    userId: userId,
                     Formname: formName,
                     Foldername: folderName,
                 });
