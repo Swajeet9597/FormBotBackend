@@ -11,7 +11,7 @@ const another = require("./routes/anotherWorkspaceRoutes")
 const cookieParser = require("cookie-parser");
 
 const corsOption = {
-    origin : "https://form-bot-frontend-5sxc.vercel.app",
+    origin : "https://form-bot-frontend-lemon.vercel.app",
     methods: "GET, POST, DELETE, PUT, PATCH, HEAD",
     credentials: true,
 }
