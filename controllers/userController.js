@@ -86,17 +86,17 @@ const checkUser = async(req,res)=>{
 
             const token = await jwt.sign(tokenData, 'hsdhvhsjdcsdf', { expiresIn: 60 * 60 * 10 });
 
-            // const tokenOption = {
-            //     httpOnly :true,
-            //     sameSite: "none",
-            //     secure: true
-            // }
-
             const tokenOption = {
                 httpOnly :true,
-                sameSite: "lax",
-                secure: false
+                sameSite: "none",
+                secure: true
             }
+
+            // const tokenOption = {
+            //     httpOnly :true,
+            //     sameSite: "lax",
+            //     secure: false
+            // }
 
             return res.cookie("token",token,tokenOption).status(200).json({
                 msg: "User log in Successfully",
