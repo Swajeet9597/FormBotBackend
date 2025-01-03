@@ -141,9 +141,6 @@ const createResponseDoc = async(req,res)=>{
             const {folderName,anotherUserId,formName} = req.body
 
             if(anotherUserId){
-
-            
-
             const find = await Response.findOne({
                 userId:anotherUserId,
                 Formname:formName,
