@@ -603,6 +603,28 @@ const addStarts = async (req, res) => {
     }
 };
 
+
+
+const reduceStarts =async(req,res)=>{
+    try {
+        const { formName, folderName, userId } = req.body;
+
+        await Response.updateOne(
+            { userId, Formname: formName, Foldername: folderName },
+            { $inc: { starts: -1 } }
+        );
+
+        return res.status(200).json({
+            msg: "Stars decreamented",
+            success: true,
+        });
+
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     addStarts,
     createResponseDoc,
@@ -613,4 +635,5 @@ module.exports = {
     getFormDataForSubmit,
     addFormData,
     getFormData,
+    reduceStarts
 };

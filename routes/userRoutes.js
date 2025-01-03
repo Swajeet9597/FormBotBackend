@@ -42,6 +42,7 @@ router.post("/getFormDataForResponse",authToken,formData.getFormDataForResponse)
 
 router.post("/addViews",formData.addViews)
 router.post("/addStarts",formData.addStarts)
+router.post("/reduceStarts",formData.reduceStarts)
 
 router.post("/createResponseDoc",authToken,formData.createResponseDoc)
 
