@@ -48,7 +48,7 @@ router.post("/createResponseDoc",authToken,formData.createResponseDoc)
 
 router.post("/updatedFormname",authToken, async(req,res)=>{
     try {
-        // console.log("UpdatedName",req.body,req.data._id);
+
         const {folderName,anotherUserId,formName,updatedName} = req.body
         let userId = req.data._id
         if(anotherUserId){
@@ -58,39 +58,30 @@ router.post("/updatedFormname",authToken, async(req,res)=>{
         const update = await Form.updateOne(
             {userId:userId,Formname:formName,Foldername:folderName},
             {$set:{Formname:updatedName}}
-        ) .then(result => console.log("Updated:", result))
-        .catch(err => console.error("Error:", err));
+        )
 
-// console.log(formName);
+        const removeResult = await Folder.updateOne(
+            { userId: userId, name: folderName },
+            { $pull: { forms: formName } }
+        );
 
-const removeResult = await Folder.updateOne(
-    { userId: userId, name: folderName },
-    { $pull: { forms: formName } }
-);
-// console.log("Removed old form:", removeResult);
+        const addResult = await Folder.updateOne(
+            { userId: userId, name: folderName },
+            { $push: { forms: updatedName } }
+        );
 
-// Step 2: Add the new value
-const addResult = await Folder.updateOne(
-    { userId: userId, name: folderName },
-    { $push: { forms: updatedName } }
-);
+        const updateFormNameResponse = await Response.updateOne(
+            {userId:userId,Formname:formName,Foldername:folderName},
+            {$set:{Formname:updatedName}}
+            )
+            // console.log("Added new form:", updateFormNameResponse);
 
-// console.log("Added new form:", addResult);
-
-
-const updateFormNameResponse = await Response.updateOne(
-    {userId:userId,Formname:formName,Foldername:folderName},
-    {$set:{Formname:updatedName}}
-    )
-    console.log("Added new form:", updateFormNameResponse);
+        res.status(200)
 
 
-    res.status(200)
-
-
-    } catch (error) {
-        console.log(error);
-    }
+        } catch (error) {
+            console.log(error);
+        }
 })
 
 
