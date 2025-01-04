@@ -8,7 +8,6 @@ const clearCookie = require("../controllers/clearCookie")
 const Form = require("../models/formModel")
 const Folder = require("../models/folderModel")
 const Response = require("../models/userResponseModel")
-
 const router = express.Router()
 
 
@@ -51,7 +50,7 @@ router.post("/updatedFormname",authToken, async(req,res)=>{
 
         const {folderName,anotherUserId,formName,updatedName} = req.body
         let userId = req.data._id
-        if(anotherUserId){
+        if(anotherUserId){  
             userId = anotherUserId
         }
 
