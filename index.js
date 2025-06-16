@@ -15,7 +15,7 @@ const corsOption = {
     methods: "GET, POST, DELETE, PUT, PATCH, HEAD",
     credentials: true,
 }
-
+// check the backend
 app.use(cors(corsOption))
 app.options("*", cors(corsOption));
 app.use(cookieParser());
